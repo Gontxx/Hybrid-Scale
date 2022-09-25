@@ -24,9 +24,9 @@
 
 <script>
 import { ArrowRight } from '@element-plus/icons-vue'
-import ProjectClustersInfoTable from "@/components/ProjectClustersInfoTable";
-import ClusterInfoTable from "@/components/ClusterInfoTable";
-import JobInfoTable from "@/components/JobInfoTable";
+import ProjectClustersInfoTable from "@/components/tables/ProjectClustersInfoTable";
+import ClusterInfoTable from "@/components/tables/ClusterInfoTable";
+import JobInfoTable from "@/components/tables/JobInfoTable";
 export default {
 name: "Project",
   components: {ProjectClustersInfoTable, ClusterInfoTable, JobInfoTable},

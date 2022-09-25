@@ -42,7 +42,7 @@
 <script>
 import { ArrowRight } from '@element-plus/icons-vue'
 import Terminal from '@/components/Terminal'
-import ClusterInfoTable from "@/components/ClusterInfoTable";
+import ClusterInfoTable from "@/components/tables/ClusterInfoTable";
 import SubHeader from "@/components/SubHeader";
 export default {
   name: "Cluster",

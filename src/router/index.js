@@ -8,6 +8,7 @@ import Cluster from "@/components/Cluster"
 import Job from '@/components/Job'
 import Project from "@/components/Project"
 import ProjectMain from "@/components/ProjectMain"
+import Account from "@/components/Account";
 
 const routes = [
     {
@@ -23,6 +24,14 @@ const routes = [
         name: 'Home',
         components: {
             right: Home,
+            left: Navigator
+        }
+    },
+    {
+        path: '/accounts',
+        name: 'Accounts',
+        components: {
+            right: Account,
             left: Navigator
         }
     },

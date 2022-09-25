@@ -12,7 +12,7 @@
 
 <script>
 import { ArrowRight } from '@element-plus/icons-vue'
-import ProjectListTable from "@/components/ProjectListTable";
+import ProjectListTable from "@/components/tables/ProjectListTable";
 export default {
 name: "ProjectMain",
   components: {ProjectListTable},

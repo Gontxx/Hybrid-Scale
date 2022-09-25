@@ -41,17 +41,17 @@
 
 <script>
 import { ArrowRight } from '@element-plus/icons-vue'
-import InfoTable from "@/components/JobInfoTable"
+import InfoTable from "@/components/tables/JobInfoTable"
 import SubHeader from "@/components/SubHeader";
 
 export default {
   name: "Job",
   components: {InfoTable, SubHeader},
   data(){
-  return {
-    jobName: 'tune-training-job',
-    separator: ArrowRight,
-  }
+    return {
+      jobName: 'tune-training-job',
+      separator: ArrowRight,
+    }
   }
 }
 </script>

@@ -47,7 +47,7 @@
 
 <script>
 import { ArrowRight } from '@element-plus/icons-vue'
-import ServiceInfoTable from '@/components/ServiceInfoTable'
+import ServiceInfoTable from '@/components/tables/ServiceInfoTable'
 import PlainRouterLink from "@/components/PlainRouterLink";
 export default {
 name: "Service",
