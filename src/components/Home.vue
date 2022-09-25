@@ -60,29 +60,48 @@
         />
       </el-col>
     </el-row>
-    <el-dialog v-model="dialogFormVisible" title="Project Config">
-      <el-form :model="form">
-        <el-form-item label="Resources">
-          <el-input v-model="form.resources" autocomplete="off" />
+    <el-dialog v-model="dialogFormVisible" title="Service Config">
+      <el-form :model="config">
+        <el-form-item label="Function File">
+          <el-upload
+              class="upload-demo"
+              ref="upload"
+              drag
+              action=""
+              accept=".py"
+              :limit=limits
+              :on-change="setServiceName"
+              :http-request="httpRequest"
+          >
+            <el-icon class="el-icon--upload"><upload-filled /></el-icon>
+            <div class="el-upload__text">
+              Drop file here or <em>click to upload</em>
+            </div>
+            <template #tip>
+              <div class="el-upload__tip">
+                upload the python file which contains your function
+              </div>
+            </template>
+          </el-upload>
         </el-form-item>
-        <el-form-item label="NumNodes">
-          <el-input v-model="form.num_nodes" autocomplete="off" />
+        <el-form-item label="Provider">
+          <el-select v-model="config.provider" placeholder="please select your provider">
+            <el-option label="AWS" value="aws" />
+            <el-option label="Aliyun" value="aliyun" />
+          </el-select>
         </el-form-item>
-        <el-form-item label="WorkDir">
-          <el-input v-model="form.workdir" autocomplete="off" />
-        </el-form-item>
-        <el-form-item label="SetUp">
-          <el-input v-model="form.setup" autocomplete="off" />
-        </el-form-item>
-        <el-form-item label="Run">
-          <el-input v-model="form.run" autocomplete="off" />
+        <el-form-item label="Service Name">
+          <el-input
+              placeholder="please input your service name"
+              v-model="config.serviceName"
+          />
         </el-form-item>
       </el-form>
       <template #footer>
       <span class="dialog-footer">
         <el-button @click="dialogFormVisible = false" style="font-family: Poppins">Cancel</el-button>
-        <el-button color="#0d305e" @click="ShowProjectDetail" style="font-family: Poppins"
-        >Confirm</el-button
+        <el-button color="#0d305e" @click="uploadAndDeploy" style="font-family: Poppins"
+        >Deploy</el-button
         >
       </span>
       </template>
@@ -91,26 +110,54 @@
 </template>
 
 <script>
+import ElMessage from "element-plus"
+import axios from 'axios'
 export default {
-name: "Home",
+  name: "Home",
   data(){
-  return{
-    hello_world_pic:"https://img1.sycdn.imooc.com/5e8d447c0001fc0f05000266.jpg",
-    dialogFormVisible: false,
-    form: {
-      resources: 'accelerators: V100:1',
-      num_nodes: 1,
-      workdir: '~/torch_examples',
-      setup: 'pip install torch torchvision',
-      run: 'cd mnist\n' +
-          '  python main.py --epochs 1'
-    },
-    pic:"https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F75%2F16%2F5bf8a084d5fe9_610.jpg&refer=http%3A%2F%2Fpic.51yuansu.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1664804616&t=85df95f9196c99b6df28a831b3a683e9"
-  }
+    return{
+      hello_world_pic:"https://img1.sycdn.imooc.com/5e8d447c0001fc0f05000266.jpg",
+      dialogFormVisible: false,
+      config: {
+        provider: '',
+        serviceName: ''
+      },
+      uploadUrl: 'http://127.0.0.1:5000/upload',
+      limits: 1,
+      pic:"https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F75%2F16%2F5bf8a084d5fe9_610.jpg&refer=http%3A%2F%2Fpic.51yuansu.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1664804616&t=85df95f9196c99b6df28a831b3a683e9"
+    }
   },
   methods: {
-    ShowProjectDetail() {
-      this.$router.push('project-info');
+    uploadAndDeploy() {
+      this.$refs.upload.submit()
+    },
+    httpRequest(params) {
+      console.log(params.file)
+      var formData = new FormData()
+      formData.append('file', params.file)
+      formData.append('service_name', this.config.serviceName)
+      formData.append('provider', this.config.provider)
+      formData.append('function_name', 'xxtong')
+      axios.post(
+          this.uploadUrl, formData, {
+            headers: {'content-type': 'multipart/form-data'}
+          }
+      ).then(
+          res => {
+            console.log(res.data.message)
+          }
+      )
+    },
+    setServiceName(uploadFile) {
+      this.config.serviceName = uploadFile.name.substring(uploadFile.name.length - 3, -3)
+      console.log('[setServiceName]: ' + this.config.serviceName)
+    },
+    handleExceed(files, uploadFiles) {
+      ElMessage.warning(
+          `The limit is ${this.limits}, you selected ${files.length} files this time, add up to ${
+              files.length + uploadFiles.length
+          } totally`
+      )
     }
   }
 }
@@ -158,5 +205,8 @@ name: "Home",
 }
 .ep-bg-purple {
   background-color: darkgray;
+}
+.el-select {
+  font-family: Poppins;
 }
 </style>
