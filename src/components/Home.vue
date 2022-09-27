@@ -116,6 +116,7 @@ export default {
   name: "Home",
   data(){
     return{
+      loading: false,
       hello_world_pic:"https://img1.sycdn.imooc.com/5e8d447c0001fc0f05000266.jpg",
       dialogFormVisible: false,
       config: {
