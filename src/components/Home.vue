@@ -96,6 +96,12 @@
               v-model="config.serviceName"
           />
         </el-form-item>
+        <el-form-item label="Service Function">
+          <el-input
+              placeholder="please input your function name"
+              v-model="config.functionName"
+          />
+        </el-form-item>
       </el-form>
       <template #footer>
       <span class="dialog-footer">
@@ -120,7 +126,8 @@ export default {
       dialogFormVisible: false,
       config: {
         provider: '',
-        serviceName: ''
+        serviceName: '',
+        functionName: ''
       },
       uploadUrl: 'http://127.0.0.1:5000/upload',
       limits: 1,
@@ -137,14 +144,14 @@ export default {
       formData.append('file', params.file)
       formData.append('service_name', this.config.serviceName)
       formData.append('provider', this.config.provider)
-      formData.append('function_name', 'xxtong')
+      formData.append('function_name', this.config.functionName)
       axios.post(
           this.uploadUrl, formData, {
             headers: {'content-type': 'multipart/form-data'}
           }
       ).then(
           res => {
-            console.log(res.data.message)
+            console.log(res.data)
           }
       )
     },

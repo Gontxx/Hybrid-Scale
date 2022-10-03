@@ -5,7 +5,6 @@
           ref="multipleTableRef"
           :data="accountTableData"
           class="content"
-          size="medium"
       >
         <el-table-column type="selection" />
         <el-table-column property="name" label="Name"/>
@@ -13,10 +12,13 @@
         <el-table-column label="Operation">
           <template #default="scope">
             <el-button type="primary" @click="showAccountDetail(scope.$index)">
-              View <el-icon><Search /></el-icon>
+              Settings <el-icon><Setting /></el-icon>
             </el-button>
             <el-button type="danger" @click="deleteAccount(scope.$index)">
               Remove <el-icon><Delete /></el-icon>
+            </el-button>
+            <el-button type="danger" @click="showDetail(scope.row.name, scope.row.provider)">
+              View <el-icon><Search /></el-icon>
             </el-button>
           </template>
         </el-table-column>
@@ -40,19 +42,21 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "AccountTable",
   data() {
     return {
       accountTableData: [{
         name: "xxtong's AWS account",
-        provider: 'AWS',
+        provider: 'aws',
         accessKeyId: 'DYBDS6WC4HKNC3UPYVPY',
         secretAccessKey: '3ivne/6738ndslokGex2Omwco+jacJj9uMQGSG',
         defaultRegionName: 'us-east-1'
       }, {
-        name: "xxtong's AliCloud account",
-        provider: 'AliCloud',
+        name: "xxtong's Aliyun account",
+        provider: 'aliyun',
         accessKeyId: 'DYBDS6WC4HKNC3UPYVPY',
         secretAccessKey: '3ivne/6738ndslokGex2Omwco+jacJj9uMQGSG',
         defaultRegionName: 'us-east-1'
@@ -64,7 +68,8 @@ export default {
         defaultRegionName: 'us-east-1'
       }],
       selectedAccountIndex: 1,
-      dialogDescriptionVisible: false
+      dialogDescriptionVisible: false,
+      getAccountFunctionUrl: "http://127.0.0.1:5000/list/"
     }
   },
   methods: {
@@ -79,6 +84,28 @@ export default {
     deleteAccount(index) {
       console.log('deleteAccount' + index)
       this.accountTableData.splice(index, 1)
+    },
+    showDetail(name, provider) {
+      console.log('provider:' + provider)
+      axios.get(
+          this.getAccountFunctionUrl + provider
+      ).then(
+          res => {
+            console.log(res)
+            var funcList = res.data.Functions
+            console.log(name)
+            console.log(funcList)
+            this.$router.push({
+                  name: 'AccountInfo',
+                  // TODO: we should refactor this
+                  query: {
+                    functionList: JSON.stringify(funcList),
+                    functionName: name
+                  }
+                }
+            );
+          }
+      )
     }
   }
 }

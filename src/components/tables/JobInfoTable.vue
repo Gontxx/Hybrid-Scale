@@ -4,7 +4,6 @@
         ref="multipleTableRef"
         :data="tableData"
         class="content"
-        size="medium"
     >
       <el-table-column type="selection" />
       <el-table-column property="name" label="Name"/>

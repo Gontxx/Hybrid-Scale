@@ -9,6 +9,7 @@ import Job from '@/components/Job'
 import Project from "@/components/Project"
 import ProjectMain from "@/components/ProjectMain"
 import Account from "@/components/Account";
+import AccountInfo from "@/components/AccountInfo";
 
 const routes = [
     {
@@ -32,6 +33,14 @@ const routes = [
         name: 'Accounts',
         components: {
             right: Account,
+            left: Navigator
+        }
+    },
+    {
+        path: '/account-info',
+        name: 'AccountInfo',
+        components: {
+            right: AccountInfo,
             left: Navigator
         }
     },
