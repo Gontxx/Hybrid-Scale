@@ -1,3 +1,5 @@
+<!--This page describe all available cloud service accounts of the current WeCloud account.-->
+<!--You may want to learn more detail investigating AccountTable.vue.-->
 <template>
   <el-main>
     <el-breadcrumb :separator-icon="separator">

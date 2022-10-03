@@ -1,12 +1,13 @@
+<!--this template describes all deployed functions in a certain account-->
 <template>
   <el-main>
     <el-breadcrumb :separator-icon="separator">
       <el-breadcrumb-item :to="{ path: '/Accounts' }">Accounts</el-breadcrumb-item>
-      <el-breadcrumb-item>{{ functionName }}</el-breadcrumb-item>
+      <el-breadcrumb-item>{{ accountName }}</el-breadcrumb-item>
     </el-breadcrumb>
     <el-col class="content">
       <sub-header content-name="Deployed functions"></sub-header>
-      <account-function-table :function-list="functionList" :function-name="functionName"></account-function-table>
+      <account-function-table :function-list="functionList" :function-name="functionName" :provider="provider"></account-function-table>
     </el-col>
   </el-main>
 </template>
@@ -25,16 +26,22 @@ export default {
       separator: ArrowRight,
       functionList: [],
       functionName: '',
+      provider: ''
     }
   },
   created() {
     console.log(this.$route)
     this.functionList = JSON.parse(this.$route.query.functionList)
-    this.functionName = this.$route.query.functionName
+    this.accountName = this.$route.query.accountName
+    this.provider = this.$route.query.provider
   }
 }
 </script>
 
 <style scoped>
-
+.content {
+  padding-top: 40px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
 </style>

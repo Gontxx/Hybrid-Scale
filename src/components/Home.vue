@@ -1,7 +1,7 @@
 <template>
   <el-main>
     <el-header class="header">
-      Welcome to XScale
+      Welcome to WeCloud
     </el-header>
     <el-row class = "playground">
       <el-card>
@@ -15,7 +15,7 @@
           />
         </el-row>
         <el-row>
-          <el-button color="#0d305e" style="font-family: Poppins" @click="dialogFormVisible = true">
+          <el-button color="#0d305e" @click="dialogFormVisible = true">
             Create a Demo Project
             <el-icon style="margin-left: 10px;"><Notebook /></el-icon>
           </el-button>
@@ -61,14 +61,15 @@
       </el-col>
     </el-row>
     <el-dialog v-model="dialogFormVisible" title="Service Config">
-      <el-form :model="config">
+      <el-form v-loading="loading" :model="config">
         <el-form-item label="Function File">
           <el-upload
               class="upload-demo"
               ref="upload"
               drag
               action=""
-              accept=".py"
+              accept=".py,.zip"
+              :auto-upload="false"
               :limit=limits
               :on-change="setServiceName"
               :http-request="httpRequest"
@@ -105,8 +106,8 @@
       </el-form>
       <template #footer>
       <span class="dialog-footer">
-        <el-button @click="dialogFormVisible = false" style="font-family: Poppins">Cancel</el-button>
-        <el-button color="#0d305e" @click="uploadAndDeploy" style="font-family: Poppins"
+        <el-button @click="dialogFormVisible = false; loading = false">Cancel</el-button>
+        <el-button color="#0d305e" @click="uploadAndDeploy"
         >Deploy</el-button
         >
       </span>
@@ -116,7 +117,7 @@
 </template>
 
 <script>
-import ElMessage from "element-plus"
+import {ElMessage} from "element-plus"
 import axios from 'axios'
 export default {
   name: "Home",
@@ -137,7 +138,9 @@ export default {
   },
   methods: {
     uploadAndDeploy() {
+      this.loading = true
       this.$refs.upload.submit()
+      this.loading = false
     },
     httpRequest(params) {
       console.log(params.file)
@@ -151,13 +154,20 @@ export default {
             headers: {'content-type': 'multipart/form-data'}
           }
       ).then(
-          res => {
-            console.log(res.data)
+        res => {
+          console.log(res)
+          ElMessage.success(res.data)
+        }
+      ).catch(
+          err => {
+            console.log(err)
+            ElMessage.error(err)
           }
       )
     },
     setServiceName(uploadFile) {
-      this.config.serviceName = uploadFile.name.substring(uploadFile.name.length - 3, -3)
+      //.py or .zip
+      this.config.serviceName = uploadFile.name.split('.')[0]
       console.log('[setServiceName]: ' + this.config.serviceName)
     },
     handleExceed(files, uploadFiles) {

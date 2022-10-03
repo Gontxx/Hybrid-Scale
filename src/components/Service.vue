@@ -30,11 +30,11 @@
       </el-descriptions-item>
     </el-descriptions>
       <el-row style="margin-top: 10px;">
-        <el-button type="success" style="font-family: Poppins;">
+        <el-button type="success" >
           Dashboard
           <el-icon  style="margin-left: 3px"><DataAnalysis /></el-icon>
         </el-button>
-        <el-button type="danger" style="font-family: Poppins;">
+        <el-button type="danger" >
           Terminate
           <el-icon style="margin-left: 3px"><CircleCloseFilled /></el-icon>
         </el-button>

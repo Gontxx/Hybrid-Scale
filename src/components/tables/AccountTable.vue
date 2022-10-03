@@ -1,3 +1,6 @@
+<!--This table describe all available cloud service accounts of the current WeCloud account.-->
+<!--Currently we only support one account of each provider.-->
+<!--You may click the View button to explore all deployed functions of each provider.-->
 <template>
   <el-col>
     <el-auto-resizer>
@@ -11,14 +14,14 @@
         <el-table-column property="provider" label="Provider"/>
         <el-table-column label="Operation">
           <template #default="scope">
-            <el-button type="primary" @click="showAccountDetail(scope.$index)">
+            <el-button type="primary" @click="showDetail(scope.row.name, scope.row.provider)">
+              View <el-icon><Search /></el-icon>
+            </el-button>
+            <el-button type="info" @click="showAccountDetail(scope.$index)">
               Settings <el-icon><Setting /></el-icon>
             </el-button>
             <el-button type="danger" @click="deleteAccount(scope.$index)">
               Remove <el-icon><Delete /></el-icon>
-            </el-button>
-            <el-button type="danger" @click="showDetail(scope.row.name, scope.row.provider)">
-              View <el-icon><Search /></el-icon>
             </el-button>
           </template>
         </el-table-column>
@@ -92,7 +95,10 @@ export default {
       ).then(
           res => {
             console.log(res)
-            var funcList = res.data.Functions
+            let funcList
+            if (provider == 'aws') {
+              funcList = res.data.Functions
+            }
             console.log(name)
             console.log(funcList)
             this.$router.push({
@@ -100,7 +106,8 @@ export default {
                   // TODO: we should refactor this
                   query: {
                     functionList: JSON.stringify(funcList),
-                    functionName: name
+                    accountName: name,
+                    provider: provider
                   }
                 }
             );
@@ -112,9 +119,6 @@ export default {
 </script>
 
 <style scoped>
-.el-button {
-  font-family: Poppins;
-}
 .el-icon {
   margin-left: 3px;
 }

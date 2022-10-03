@@ -1,7 +1,7 @@
 <template>
   <el-aside>
     <el-row>
-      <div class="logo">XScale</div>
+      <div class="logo">WeCloud</div>
       <div class="description">
         Scale your application from your laptop to the sky
       </div>

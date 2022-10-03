@@ -9,7 +9,7 @@
     >
 
       <el-header style="text-align: left; margin-bottom: 20px">
-        <span class="logo" style="color: white">XScale</span>
+        <span class="logo" style="color: white">WeCloud</span>
       </el-header>
 
       <el-menu-item index="home">
