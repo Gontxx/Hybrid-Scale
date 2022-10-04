@@ -68,7 +68,7 @@
               ref="upload"
               drag
               action=""
-              accept=".py,.zip"
+              accept=".py"
               :auto-upload="false"
               :limit=limits
               :on-change="setServiceName"
@@ -166,7 +166,7 @@ export default {
       )
     },
     setServiceName(uploadFile) {
-      //.py or .zip
+      //.py
       this.config.serviceName = uploadFile.name.split('.')[0]
       console.log('[setServiceName]: ' + this.config.serviceName)
     },
