@@ -6,13 +6,13 @@
     <el-auto-resizer>
       <el-table
           ref="multipleTableRef"
-          :data="accountTableData"
+          :data="$store.state.CloudServiceAccountList"
           class="content"
       >
         <el-table-column type="selection" />
         <el-table-column property="name" label="Name"/>
         <el-table-column property="provider" label="Provider"/>
-        <el-table-column label="Operation">
+        <el-table-column label="Operation" width="400">
           <template #default="scope">
             <el-button type="primary" @click="showDetail(scope.row.name, scope.row.provider)">
               View <el-icon><Search /></el-icon>
@@ -28,11 +28,11 @@
       </el-table>
     </el-auto-resizer>
     <el-dialog v-model="dialogDescriptionVisible" title="Account Info">
-      <el-descriptions :title=accountTableData[selectedAccountIndex].name column=1>
-        <el-descriptions-item label="Access Key ID">{{accountTableData[selectedAccountIndex].accessKeyId}}</el-descriptions-item>
-        <el-descriptions-item label="Secret Access Key">{{accountTableData[selectedAccountIndex].secretAccessKey}}</el-descriptions-item>
+      <el-descriptions :title=$store.state.CloudServiceAccountList[selectedAccountIndex].name column=1>
+        <el-descriptions-item label="Access Key ID">{{$store.state.CloudServiceAccountList[selectedAccountIndex].accessKeyId}}</el-descriptions-item>
+        <el-descriptions-item label="Secret Access Key">{{$store.state.CloudServiceAccountList[selectedAccountIndex].secretAccessKey}}</el-descriptions-item>
         <el-descriptions-item label="Default Region Name">
-          {{accountTableData[selectedAccountIndex].defaultRegionName}}
+          {{$store.state.CloudServiceAccountList[selectedAccountIndex].defaultRegionName}}
         </el-descriptions-item>
       </el-descriptions>
       <template #footer>
@@ -51,7 +51,7 @@ export default {
   name: "AccountTable",
   data() {
     return {
-      accountTableData: [{
+      accountTableDefaultData: [{
         name: "xxtong's AWS account",
         provider: 'aws',
         accessKeyId: 'DYBDS6WC4HKNC3UPYVPY',
@@ -76,7 +76,6 @@ export default {
     }
   },
   methods: {
-    // TODO: Get accountTableData from database
     // TODO: Delete account in database
     // TODO: Add new account
     showAccountDetail(index) {
@@ -98,6 +97,8 @@ export default {
             let funcList
             if (provider == 'aws') {
               funcList = res.data.Functions
+            } else if(provider == 'aliyun') {
+              funcList = res.data.functions
             }
             console.log(name)
             console.log(funcList)

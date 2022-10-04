@@ -2,8 +2,8 @@
   <el-main>
     <el-header>Get Started</el-header>
     <el-row>
-      <h2>Work Email</h2>
-      <el-input v-model="email" placeholder="Please input your work email" />
+      <h2>Username</h2>
+      <el-input v-model="username" placeholder="Please input your username" />
       <h2>Password</h2>
       <el-input
           v-model="password"
@@ -17,20 +17,60 @@
 </template>
 
 <script>
+import axios from "axios";
+import {ElMessage} from "element-plus";
+
 export default {
 name: "Login",
   data() {
   return {
-    email: '',
-    password: ''
+    username: '',
+    password: '',
+    loginUrl: 'http://127.0.0.1:5000/login',
   }
   },
   methods: {
     onClick() {
-      this.$router.push({
-            name: 'Home'
+      let postData = {
+        "user": this.username,
+        "password": this.password
+      }
+      axios.post(this.loginUrl, postData, {
+        'Content-Type': 'application/json'
+      }).then(
+          res => {
+            console.log(res)
+            if (res.data.code != 1) {
+              ElMessage.error(res.data.msg)
+            } else {
+              ElMessage.success('Succesfully login!')
+              console.log(res.data.payload.account_keys)
+              res.data.payload.account_keys.forEach((account) => {
+                    let provider = account[1]
+                    let access_key = account[2]
+                    let secret_key = account[3]
+                    const accountDict = {
+                      name: this.username + "'s " + provider + " account",
+                      provider: provider,
+                      accessKeyId: access_key,
+                      secretAccessKey: secret_key,
+                      defaultRegionName: 'unknown'
+                    }
+                    this.$store.commit('addAccount', accountDict)
+                  }
+              )
+              this.$router.push({
+                    name: 'Home'
+                  }
+              );
+            }
           }
-      );
+      ).catch(
+          err => {
+            console.log(err)
+            ElMessage.error(err)
+          }
+      )
     }
   }
 }
@@ -49,6 +89,9 @@ name: "Login",
   padding-left: 10%;
   padding-right: 10%;
   text-align: left;
+}
+.el-input {
+  font-family: Poppins;
 }
 .el-row {
   max-width: 70%;
