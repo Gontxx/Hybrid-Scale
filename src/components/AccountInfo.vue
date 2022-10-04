@@ -24,14 +24,12 @@ export default {
     return {
       accountName: '',
       separator: ArrowRight,
-      functionList: [],
       functionName: '',
       provider: ''
     }
   },
   created() {
     console.log(this.$route)
-    this.functionList = JSON.parse(this.$route.query.functionList)
     this.accountName = this.$route.query.accountName
     this.provider = this.$route.query.provider
   }

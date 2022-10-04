@@ -100,13 +100,13 @@ export default {
             } else if(provider == 'aliyun') {
               funcList = res.data.functions
             }
+            this.$store.commit('initFunctionList', funcList)
             console.log(name)
             console.log(funcList)
             this.$router.push({
                   name: 'AccountInfo',
                   // TODO: we should refactor this
                   query: {
-                    functionList: JSON.stringify(funcList),
                     accountName: name,
                     provider: provider
                   }

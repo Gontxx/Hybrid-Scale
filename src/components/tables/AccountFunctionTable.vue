@@ -3,7 +3,7 @@
 <template>
   <el-row>
     <el-table
-        :data="availableFunctionList"
+        :data="$store.state.CurAccountFunctionList"
         class="content"
     >
       <el-table-column type="selection" />
@@ -12,7 +12,7 @@
       <el-table-column property="Description" label="Description"/>
       <el-table-column property="LastModified" label="Last Modified"/>
       <el-table-column property="Version" label="Version"/>
-      <el-table-column label="Operations">
+      <el-table-column label="Operations" width="270">
         <template #default="scope">
           <el-button type="primary" @click="invokeFunction(scope.$index)">
             Invoke <el-icon><Open /></el-icon>
@@ -36,14 +36,9 @@ export default {
     return {
       invokeUrl: 'http://127.0.0.1:5000/invoke',
       deleteUrl: 'http://127.0.0.1:5000/delete',
-      availableFunctionList: []
     }
   },
   props: {
-    functionList: {
-      type: Array,
-      required: true
-    },
     accountName: {
       type: String,
       required: true
@@ -53,14 +48,10 @@ export default {
       required: true
     }
   },
-  created() {
-    // TODO: currently act wrongly when refreshed: deleted function still exists
-    this.availableFunctionList = this.functionList
-  },
   methods: {
     postRequest(index, postUrl, successCallback) {
       let postData = {
-        "function_name": this.availableFunctionList[index].FunctionName,
+        "function_name": this.$store.state.CurAccountFunctionList[index].FunctionName,
         "provider": this.provider
       }
       console.log(postData)
@@ -91,7 +82,7 @@ export default {
     },
     deleteFunction(index) {
       this.postRequest(index, this.deleteUrl, ()=>{
-        this.availableFunctionList.splice(index, 1)
+        this.$store.commit('deleteFunction', index)
       })
     }
   }
