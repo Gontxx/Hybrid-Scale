@@ -4,7 +4,7 @@
       <el-breadcrumb-item :to="{ path: '/services' }">Services</el-breadcrumb-item>
       <el-breadcrumb-item>cat-detection-sevice</el-breadcrumb-item>
     </el-breadcrumb>
-    <el-col class="content">
+    <el-col class="main-content">
       <el-descriptions title="About this service" column=2 size="large">
       <el-descriptions-item label="Status">
         <el-tag size="small">Running</el-tag>
@@ -61,14 +61,5 @@ name: "Service",
 </script>
 
 <style scoped>
-.el-header {
-  text-align: left;
-  font-size: 15px;
-  font-weight: bold;
-}
-.content {
-  padding-top: 40px;
-  padding-left: 20px;
-  padding-right: 20px;
-}
+
 </style>

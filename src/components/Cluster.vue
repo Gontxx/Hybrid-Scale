@@ -4,7 +4,7 @@
       <el-breadcrumb-item :to="{ path: '/Clusters' }">Clusters</el-breadcrumb-item>
       <el-breadcrumb-item>WM01</el-breadcrumb-item>
     </el-breadcrumb>
-    <el-col class="content">
+    <el-col class="main-content">
       <el-descriptions title="About this cluster" column=2 size="large">
         <el-descriptions-item label="Status">
           <el-tag size="small">Active</el-tag>
@@ -57,10 +57,5 @@ export default {
 </script>
 
 <style scoped>
-.content {
-  padding-top: 40px;
-  padding-left: 20px;
-  padding-right: 20px;
-}
 
 </style>

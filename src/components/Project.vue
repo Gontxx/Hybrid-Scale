@@ -4,7 +4,7 @@
       <el-breadcrumb-item :to="{ path: '/projects' }">Projects</el-breadcrumb-item>
       <el-breadcrumb-item>DemoProject</el-breadcrumb-item>
     </el-breadcrumb>
-    <el-col class="content">
+    <el-col class="main-content">
       <el-tabs v-model="activeName" class="demo-tabs">
         <el-tab-pane label="Clusters" name="clusters">
           <project-clusters-info-table></project-clusters-info-table>
@@ -41,9 +41,4 @@ name: "Project",
 </script>
 
 <style scoped>
-.content {
-  padding-top: 40px;
-  padding-left: 20px;
-  padding-right: 20px;
-}
 </style>

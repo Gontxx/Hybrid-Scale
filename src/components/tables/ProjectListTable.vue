@@ -50,9 +50,5 @@ export default {
 </script>
 
 <style scoped>
-.content {
-  padding-top: 40px;
-  padding-left: 20px;
-  padding-right: 20px;
-}
+
 </style>

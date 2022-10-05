@@ -224,7 +224,4 @@ export default {
 .ep-bg-purple {
   background-color: darkgray;
 }
-.el-select {
-  font-family: Poppins;
-}
 </style>

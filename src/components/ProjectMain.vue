@@ -4,7 +4,7 @@
       <el-breadcrumb-item :to="{ path: '/projects' }">Projects</el-breadcrumb-item>
       <el-breadcrumb-item>Home</el-breadcrumb-item>
     </el-breadcrumb>
-    <el-col class="content">
+    <el-col class="main-content">
       <ProjectListTable></ProjectListTable>
     </el-col>
   </el-main>
@@ -25,9 +25,5 @@ name: "ProjectMain",
 </script>
 
 <style scoped>
-.content {
-  padding-top: 40px;
-  padding-left: 20px;
-  padding-right: 20px;
-}
+
 </style>

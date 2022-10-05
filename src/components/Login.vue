@@ -90,9 +90,6 @@ name: "Login",
   padding-right: 10%;
   text-align: left;
 }
-.el-input {
-  font-family: Poppins;
-}
 .el-row {
   max-width: 70%;
 }

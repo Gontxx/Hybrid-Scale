@@ -5,7 +5,7 @@
       <el-breadcrumb-item :to="{ path: '/Accounts' }">Accounts</el-breadcrumb-item>
       <el-breadcrumb-item>{{ accountName }}</el-breadcrumb-item>
     </el-breadcrumb>
-    <el-col class="content">
+    <el-col class="main-content">
       <sub-header content-name="Deployed functions"></sub-header>
       <account-function-table :function-list="functionList" :function-name="functionName" :provider="provider"></account-function-table>
     </el-col>
@@ -37,9 +37,5 @@ export default {
 </script>
 
 <style scoped>
-.content {
-  padding-top: 40px;
-  padding-left: 20px;
-  padding-right: 20px;
-}
+
 </style>

@@ -1,3 +1,8 @@
-.el-button, input {
+.el-button, input, .el-select {
     font-family: Poppins
+}
+.main-content {
+    padding-top: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
