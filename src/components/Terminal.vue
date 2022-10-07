@@ -1,6 +1,5 @@
 <template>
   <el-col>
-    <sub-header content-name="Terminal"></sub-header>
     <el-tabs
         v-model="editableTabsValue"
         type="card"
@@ -22,11 +21,9 @@
 </template>
 
 <script>
-import SubHeader from "@/components/SubHeader";
 
 export default {
 name: "Terminal",
-  components: {SubHeader},
   data() {
   return {
     tabIndex: 0,
@@ -35,7 +32,7 @@ name: "Terminal",
       {
         title: 'Terminal 0',
         name: '0',
-        content: ' $xxtong@WM01:',
+        content: ' $' + this.accountName + '@' + this.provider +  ':',
       }
     ]
   }
@@ -69,7 +66,17 @@ name: "Terminal",
         this.editableTabs = tabs.filter((tab) => tab.name !== targetName)
       }
     }
-  }
+  },
+  props: {
+    accountName: {
+      type: String,
+      required: true
+    },
+    provider: {
+      type: String,
+      required: true
+    }
+  },
 }
 </script>
 

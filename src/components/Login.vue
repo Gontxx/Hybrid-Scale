@@ -40,11 +40,12 @@ name: "Login",
       }).then(
           res => {
             console.log(res)
-            if (res.data.code != 1) {
+            if (res.status != 200) {
               ElMessage.error(res.data.msg)
             } else {
               ElMessage.success('Succesfully login!')
               console.log(res.data.payload.account_keys)
+              this.$store.commit('clearAccount')
               res.data.payload.account_keys.forEach((account) => {
                     let provider = account[1]
                     let access_key = account[2]

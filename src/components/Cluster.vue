@@ -32,6 +32,7 @@
           <el-icon style="margin-left: 3px"><CircleCloseFilled /></el-icon>
         </el-button>
       </el-row>
+      <sub-header content-name="Terminal"></sub-header>
       <terminal></terminal>
       <sub-header content-name="Cluster Info"></sub-header>
       <cluster-info-table></cluster-info-table>
