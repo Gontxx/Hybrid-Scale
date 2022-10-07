@@ -39,10 +39,6 @@ export default {
     }
   },
   props: {
-    accountName: {
-      type: String,
-      required: true
-    },
     provider: {
       type: String,
       required: true
@@ -63,8 +59,11 @@ export default {
             if (res.data.errorType != undefined) {
               ElMessage.error(res.data.errorType + ': ' + res.data.errorMessage)
             } else {
-              let message = JSON.parse(res.data.body)['message']
-              ElMessage.success(message)
+              if (postData.provider == 'aws') {
+                ElMessage.success(JSON.parse(res.data)['msg'])
+              } else if (postData.provider == 'aliyun') {
+                ElMessage.success('Success!')
+              }
               if (successCallback) {
                 successCallback()
               }

@@ -7,7 +7,9 @@
     </el-breadcrumb>
     <el-col class="main-content">
       <sub-header content-name="Deployed functions"></sub-header>
-      <account-function-table :function-list="functionList" :function-name="functionName" :provider="provider"></account-function-table>
+      <account-function-table :provider="provider"></account-function-table>
+      <sub-header content-name="Logs"></sub-header>
+      <terminal :account-name="accountName" :provider="provider"></terminal>
     </el-col>
   </el-main>
 </template>
@@ -16,10 +18,11 @@
 import { ArrowRight } from '@element-plus/icons-vue'
 import AccountFunctionTable from "@/components/tables/AccountFunctionTable";
 import SubHeader from "@/components/SubHeader";
+import Terminal from '@/components/Terminal'
 
 export default {
   name: "AccountInfo",
-  components: {AccountFunctionTable, SubHeader},
+  components: {AccountFunctionTable, SubHeader, Terminal},
   data() {
     return {
       accountName: '',

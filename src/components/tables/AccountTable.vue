@@ -94,11 +94,19 @@ export default {
       ).then(
           res => {
             console.log(res)
-            let funcList
+            let funcList = []
             if (provider == 'aws') {
-              funcList = res.data.Functions
+              funcList = JSON.parse(res.data.payload).Functions
             } else if(provider == 'aliyun') {
-              funcList = res.data.functions
+              res.data.payload.functions.forEach((func) => {
+                funcList.push({
+                  FunctionName: func['functionName'],
+                  Runtime: func['runtime'],
+                  Description: func['description'],
+                  LastModified: func['lastModifiedTime'],
+                  Version: 'unsupported',
+                })
+              })
             }
             this.$store.commit('initFunctionList', funcList)
             console.log(name)
