@@ -8,6 +8,10 @@ const store = createStore({
         }
     },
     mutations: {
+        clearAccount(state) {
+            state.CloudServiceAccountList = []
+            sessionStorage.setItem("CloudServiceAccountList", JSON.stringify(state.CloudServiceAccountList))
+        },
         addAccount(state, account) {
             state.CloudServiceAccountList.push(account)
             sessionStorage.setItem("CloudServiceAccountList", JSON.stringify(state.CloudServiceAccountList))
