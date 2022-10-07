@@ -17,6 +17,17 @@
         <span>Home</span>
       </el-menu-item>
 
+      <el-sub-menu index="overview">
+        <template #title>
+          <el-icon><View /></el-icon>
+          <span>Overview</span>
+        </template>
+          <el-menu-item index="aws-overview">AWS</el-menu-item>
+          <el-menu-item index="aliyun-overview">Aliyun</el-menu-item>
+          <el-menu-item index="knative-overview">KNative</el-menu-item>
+      </el-sub-menu>
+
+
       <el-menu-item index="accounts">
         <el-icon><User /></el-icon>
         <span>Accounts</span>
@@ -67,6 +78,9 @@ name: "navigator",
   height: 100%;
   background-color: #0d305e;
   padding-top: 20%;
+}
+.el-menu-item {
+  background-color:#0d305e;
 }
 .logo {
   font-size: 40px;
