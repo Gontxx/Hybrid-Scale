@@ -71,12 +71,14 @@ export default {
                   'Content-Type': 'application/json'
                 }).then(
                     log_res => {
-                      // console.log(log_res.data.payload.at(-1).events)
-                      log_res.data.payload.at(-1).events.forEach((e) => {
-                        console.log(e.message)
-                        this.$emit('showLogs', e.message)
-                      })
-                      // this.logs.push(JSON.parse(log_res.data)['payload'])
+                      if (postData.provider == 'aws') {
+                        log_res.data.payload.at(-1).events.forEach((e) => {
+                          console.log(e.message)
+                          this.$emit('showLogs', e.message)
+                        })
+                      } else if (postData.provider == 'aliyun') {
+                        this.$emit('showLogs', JSON.stringify(log_res.data.payload.at(0), null, 4))
+                      }
                     }
                 )
               } else if (type == 'delete') {
