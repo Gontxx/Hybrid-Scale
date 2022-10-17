@@ -36,6 +36,8 @@ export default {
     return {
       invokeUrl: 'http://127.0.0.1:5000/invoke',
       deleteUrl: 'http://127.0.0.1:5000/delete',
+      showLogsUrl: 'http://127.0.0.1:5000/show_logs',
+      logs: []
     }
   },
   props: {
@@ -45,7 +47,7 @@ export default {
     }
   },
   methods: {
-    postRequest(index, postUrl, successCallback) {
+    postRequest(index, postUrl, type) {
       let postData = {
         "function_name": this.$store.state.CurAccountFunctionList[index].FunctionName,
         "provider": this.provider
@@ -60,12 +62,25 @@ export default {
               ElMessage.error(res.data.errorType + ': ' + res.data.errorMessage)
             } else {
               if (postData.provider == 'aws') {
-                ElMessage.success(JSON.parse(res.data)['msg'])
+                ElMessage.success('Success!')
               } else if (postData.provider == 'aliyun') {
                 ElMessage.success('Success!')
               }
-              if (successCallback) {
-                successCallback()
+              if (type == 'invoke') {
+                axios.post(this.showLogsUrl, postData, {
+                  'Content-Type': 'application/json'
+                }).then(
+                    log_res => {
+                      // console.log(log_res.data.payload.at(-1).events)
+                      log_res.data.payload.at(-1).events.forEach((e) => {
+                        console.log(e.message)
+                        this.$emit('showLogs', e.message)
+                      })
+                      // this.logs.push(JSON.parse(log_res.data)['payload'])
+                    }
+                )
+              } else if (type == 'delete') {
+                this.$store.commit('deleteFunction', index)
               }
             }
           }
@@ -77,12 +92,10 @@ export default {
       )
     },
     invokeFunction(index) {
-      this.postRequest(index, this.invokeUrl)
+      this.postRequest(index, this.invokeUrl, 'invoke')
     },
     deleteFunction(index) {
-      this.postRequest(index, this.deleteUrl, ()=>{
-        this.$store.commit('deleteFunction', index)
-      })
+      this.postRequest(index, this.deleteUrl, 'delete')
     }
   }
 }

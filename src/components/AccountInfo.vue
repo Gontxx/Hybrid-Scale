@@ -7,9 +7,9 @@
     </el-breadcrumb>
     <el-col class="main-content">
       <sub-header content-name="Deployed functions"></sub-header>
-      <account-function-table :provider="provider"></account-function-table>
+      <account-function-table :provider="provider" @showLogs="showLogs" ></account-function-table>
       <sub-header content-name="Logs"></sub-header>
-      <terminal :account-name="accountName" :provider="provider"></terminal>
+      <terminal :account-name="accountName" :provider="provider" :logs="logs"></terminal>
     </el-col>
   </el-main>
 </template>
@@ -28,13 +28,19 @@ export default {
       accountName: '',
       separator: ArrowRight,
       functionName: '',
-      provider: ''
+      provider: '',
+      logs: []
     }
   },
   created() {
     console.log(this.$route)
     this.accountName = this.$route.query.accountName
     this.provider = this.$route.query.provider
+  },
+  methods: {
+    showLogs(log) {
+      this.logs.push(log)
+    }
   }
 }
 </script>

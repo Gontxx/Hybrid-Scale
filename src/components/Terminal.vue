@@ -32,7 +32,7 @@ name: "Terminal",
       {
         title: 'Terminal 0',
         name: '0',
-        content: ' $' + this.accountName + '@' + this.provider +  ':',
+        content: this.$parent.logs
       }
     ]
   }
@@ -75,8 +75,20 @@ name: "Terminal",
     provider: {
       type: String,
       required: true
+    },
+    logs: {
+      type: Array,
+      required: true,
     }
   },
+  watch: {
+    logs: {
+      handler(newLogs) {
+        this.editableTabs[0].content = newLogs.join("\n\n")
+      },
+      deep: true
+    }
+  }
 }
 </script>
 
