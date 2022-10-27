@@ -10,9 +10,9 @@ import Project from "@/components/Project"
 import ProjectMain from "@/components/ProjectMain"
 import Account from "@/components/Account";
 import AccountInfo from "@/components/AccountInfo";
-import AwsOverview from "@/components/AwsOverview";
-import AliyunOverview from "@/components/AliyunOverview";
-import KnativeOverview from "@/components/KnativeOverview";
+import AwsProvider from "@/components/AwsProvider";
+import AliyunProvider from "@/components/AliyunProvider";
+import KnativeProvider from "@/components/KnativeProvider";
 
 const routes = [
     {
@@ -88,26 +88,26 @@ const routes = [
         }
     },
     {
-        path: '/aws-overview',
-        name: 'AWS Overview',
+        path: '/aws-provider',
+        name: 'AWS Provider',
         components: {
-            right: AwsOverview,
+            right: AwsProvider,
             left: Navigator
         }
     },
     {
-        path: '/aliyun-overview',
-        name: 'Aliyun Overview',
+        path: '/aliyun-provider',
+        name: 'Aliyun Provider',
         components: {
-            right: AliyunOverview,
+            right: AliyunProvider,
             left: Navigator
         }
     },
     {
-        path: '/knative-overview',
-        name: 'KNative Overview',
+        path: '/knative-provider',
+        name: 'KNative Provider',
         components: {
-            right: KnativeOverview,
+            right: KnativeProvider,
             left: Navigator
         }
     }

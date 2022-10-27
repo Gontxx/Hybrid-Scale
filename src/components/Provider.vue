@@ -40,7 +40,7 @@ import SubHeader from "@/components/SubHeader";
 import MainHeader from "@/components/MainHeader";
 
 export default {
-  name: "Overview",
+  name: "Provider",
   components: {SubHeader, MainHeader},
   data() {
     return {

@@ -17,14 +17,14 @@
         <span>Home</span>
       </el-menu-item>
 
-      <el-sub-menu index="overview">
+      <el-sub-menu index="provider">
         <template #title>
           <el-icon><View /></el-icon>
-          <span>Overview</span>
+          <span>Providers</span>
         </template>
-          <el-menu-item index="aws-overview">AWS</el-menu-item>
-          <el-menu-item index="aliyun-overview">Aliyun</el-menu-item>
-          <el-menu-item index="knative-overview">KNative</el-menu-item>
+          <el-menu-item index="aws-provider">AWS</el-menu-item>
+          <el-menu-item index="aliyun-provider">Aliyun</el-menu-item>
+          <el-menu-item index="knative-provider">KNative</el-menu-item>
       </el-sub-menu>
 
 
