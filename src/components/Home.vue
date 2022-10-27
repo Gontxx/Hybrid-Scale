@@ -15,8 +15,12 @@
           />
         </el-row>
         <el-row>
-          <el-button color="#0d305e" @click="dialogFormVisible = true">
-            Create a Demo Project
+          <el-button color="#0d305e" @click="serverlessFunctionDialogVisible = true">
+            Deploy a Serverless Function Demo Project
+            <el-icon style="margin-left: 10px;"><Notebook /></el-icon>
+          </el-button>
+          <el-button color="#0d305e" @click="vmTaskDialogVisible = true">
+            Deploy a VM-related Demo Task
             <el-icon style="margin-left: 10px;"><Notebook /></el-icon>
           </el-button>
         </el-row>
@@ -60,133 +64,25 @@
         />
       </el-col>
     </el-row>
-    <el-dialog v-model="dialogFormVisible" title="Service Config">
-      <el-form :model="config" v-loading="loading" element-loading-text="Uploading...">
-        <el-form-item label="Function File">
-          <el-upload
-              class="upload-demo"
-              ref="upload"
-              drag
-              action=""
-              accept=".py,.zip"
-              :auto-upload="false"
-              :limit=limits
-              :on-change="setServiceConfig"
-              :http-request="httpRequest"
-          >
-            <el-icon class="el-icon--upload"><upload-filled /></el-icon>
-            <div class="el-upload__text">
-              Drop file here or <em>click to upload</em>
-            </div>
-            <template #tip>
-              <div class="el-upload__tip">
-                upload the python or zip file which contains your function
-              </div>
-            </template>
-          </el-upload>
-        </el-form-item>
-        <el-form-item label="Provider">
-          <el-select v-model="config.provider" placeholder="please select your provider" :disabled="configSetByZip">
-            <el-option label="AWS" value="aws" />
-            <el-option label="Aliyun" value="aliyun" />
-          </el-select>
-        </el-form-item>
-        <el-form-item label="Service Name">
-          <el-input
-              placeholder="please input your service name"
-              v-model="config.serviceName"
-              :disabled="configSetByZip"
-          />
-        </el-form-item>
-        <el-form-item label="Service Function">
-          <el-input
-              placeholder="please input your function name"
-              v-model="config.functionName"
-              :disabled="configSetByZip"
-          />
-        </el-form-item>
-      </el-form>
-      <template #footer>
-      <span class="dialog-footer">
-        <el-button @click="dialogFormVisible = false;">Cancel</el-button>
-        <el-button color="#0d305e" @click="uploadAndDeploy"
-        >Deploy</el-button
-        >
-      </span>
-      </template>
-    </el-dialog>
+    <ServerlessFunctionDeployDialog v-model="serverlessFunctionDialogVisible"></ServerlessFunctionDeployDialog>
+    <VMTaskDeployDialog v-model="vmTaskDialogVisible"></VMTaskDeployDialog>
   </el-main>
 </template>
 
 <script>
-import {ElMessage} from "element-plus"
-import axios from 'axios'
+import ServerlessFunctionDeployDialog from "@/components/dialogs/ServerlessFunctionDeployDialog";
+import VMTaskDeployDialog from "@/components/dialogs/VMTaskDeployDialog";
 export default {
   name: "Home",
+  components: {ServerlessFunctionDeployDialog, VMTaskDeployDialog},
   data(){
     return{
-      loading: false,
       hello_world_pic:"https://img1.sycdn.imooc.com/5e8d447c0001fc0f05000266.jpg",
-      dialogFormVisible: false,
-      config: {
-        provider: '',
-        serviceName: '',
-        functionName: ''
-      },
-      uploadUrl: 'http://127.0.0.1:5000/upload',
-      limits: 1,
-      configSetByZip: false,
-      pic:"https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F75%2F16%2F5bf8a084d5fe9_610.jpg&refer=http%3A%2F%2Fpic.51yuansu.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1664804616&t=85df95f9196c99b6df28a831b3a683e9"
+      serverlessFunctionDialogVisible: false,
+      vmTaskDialogVisible: false,
+      pic: require('@/assets/icon.png')
     }
   },
-  methods: {
-    uploadAndDeploy() {
-      this.loading = true
-      this.$refs.upload.submit()
-    },
-    httpRequest(params) {
-      var formData = new FormData()
-      formData.append('file', params.file)
-      if (this.configSetByZip == false) {
-        formData.append('service_name', this.config.serviceName)
-        formData.append('provider', this.config.provider)
-        formData.append('function_name', this.config.functionName)
-      }
-      axios.post(
-          this.uploadUrl, formData, {
-            headers: {'content-type': 'multipart/form-data'}
-          }
-      ).then(
-        res => {
-          console.log(res)
-          ElMessage.success(res.data.msg)
-          this.loading = false
-        }
-      ).catch(
-          err => {
-            console.log(err)
-            ElMessage.error(err.response.data.msg)
-            this.loading = false
-          }
-      )
-    },
-    setServiceConfig(uploadFile) {
-      console.log(uploadFile)
-      if (uploadFile.raw.type == 'application/zip') {
-        this.configSetByZip = true
-      } else {
-        this.config.serviceName = uploadFile.name.split('.')[0]
-        console.log('[setServiceConfig]: ' + this.config.serviceName)
-      }
-    },
-    handleExceed(files, uploadFiles) {
-      ElMessage.warning(
-          `The limit is ${this.limits}, you selected ${files.length} files this time, add up to ${
-              files.length + uploadFiles.length
-          } totally`
-      )
-    }
-  }
 }
 </script>
 
@@ -232,5 +128,8 @@ export default {
 }
 .ep-bg-purple {
   background-color: darkgray;
+}
+.el-image {
+  height: 200px;
 }
 </style>
