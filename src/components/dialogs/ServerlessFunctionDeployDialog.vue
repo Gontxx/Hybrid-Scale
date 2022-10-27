@@ -47,7 +47,7 @@
     </el-form>
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="dialogFormVisible = false;">Cancel</el-button>
+        <el-button>Cancel</el-button>
         <el-button color="#0d305e" @click="uploadAndDeploy"
         >Deploy</el-button
         >

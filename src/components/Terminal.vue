@@ -12,8 +12,8 @@
           :key="item.name"
           :label="item.title"
           :name="item.name"
+          v-html="item.content"
       >
-        {{ item.content }}
       </el-tab-pane>
     </el-tabs>
   </el-col>
@@ -84,7 +84,7 @@ name: "Terminal",
   watch: {
     logs: {
       handler(newLogs) {
-        this.editableTabs[0].content = newLogs.join("\n\n")
+        this.editableTabs[0].content = newLogs.join("<br>")
       },
       deep: true
     }

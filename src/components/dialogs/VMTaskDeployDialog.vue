@@ -32,6 +32,9 @@
           <template #extra>
             <p class="text" v-html="getDetail(options.at(0))">
             </p>
+            <el-button color="#0d305e" @click="deploy">
+              Deploy
+            </el-button>
           </template>
         </el-result>
       </el-col>
@@ -44,6 +47,9 @@
           <template #extra>
             <p class="text" v-html="getDetail(options.at(1))">
             </p>
+            <el-button color="#0d305e" @click="deploy">
+              Deploy
+            </el-button>
           </template>
         </el-result>
       </el-col>
@@ -58,10 +64,7 @@
     </el-row>
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="this.loading = false">Cancel</el-button>
-        <el-button color="#0d305e" @click="deploy">
-          Deploy
-        </el-button>
+        <el-button @click="this.loading = false;">Cancel</el-button>
       </span>
     </template>
   </el-dialog>
