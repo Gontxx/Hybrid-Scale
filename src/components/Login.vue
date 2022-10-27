@@ -27,6 +27,7 @@ name: "Login",
     username: '',
     password: '',
     loginUrl: 'http://127.0.0.1:5000/login',
+    getCostUrl: 'http://127.0.0.1:5000/get_bill'
   }
   },
   methods: {
@@ -50,14 +51,27 @@ name: "Login",
                     let provider = account[1]
                     let access_key = account[2]
                     let secret_key = account[3]
-                    const accountDict = {
-                      name: this.username + "'s " + provider + " account",
-                      provider: provider,
-                      accessKeyId: access_key,
-                      secretAccessKey: secret_key,
-                      defaultRegionName: 'unknown'
-                    }
-                    this.$store.commit('addAccount', accountDict)
+                    let amortized_cost = 'unknown'
+                    axios.post(this.getCostUrl, {"provider": provider}, {
+                      'Content-Type': 'application/json'
+                    }).then( res => {
+                      console.log(res)
+                      if (res.status == 200) {
+                        let tmp = res.data["ResultsByTime"][0]["Total"]["AmortizedCost"]
+                        amortized_cost = "$" + Number(tmp["Amount"]).toFixed(2)
+                        console.log("set amortized_cost to: " + amortized_cost)
+                      }
+                      const accountDict = {
+                        name: this.username + "'s " + provider + " account",
+                        provider: provider,
+                        accessKeyId: access_key,
+                        secretAccessKey: secret_key,
+                        defaultRegionName: 'unknown',
+                        amortizedCost: amortized_cost
+                      }
+                      console.log(accountDict)
+                      this.$store.commit('addAccount', accountDict)
+                    })
                   }
               )
               this.$router.push({

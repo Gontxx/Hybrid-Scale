@@ -12,6 +12,7 @@
         <el-table-column type="selection" />
         <el-table-column property="name" label="Name"/>
         <el-table-column property="provider" label="Provider"/>
+        <el-table-column property="amortizedCost" label="Amortized Cost"/>
         <el-table-column label="Operation" width="400">
           <template #default="scope">
             <el-button type="primary" @click="showDetail(scope.row.name, scope.row.provider)">
