@@ -33,6 +33,11 @@
         <span>Accounts</span>
       </el-menu-item>
 
+      <el-menu-item index="railway-demo">
+        <el-icon><VideoCameraFilled /></el-icon>
+        <span>Railway Demo</span>
+      </el-menu-item>
+
       <el-menu-item index="projects">
         <el-icon><FolderOpened /></el-icon>
         <span>Projects</span>

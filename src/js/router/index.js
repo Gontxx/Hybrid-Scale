@@ -13,6 +13,7 @@ import AccountInfo from "@/components/AccountInfo";
 import AwsProvider from "@/components/AwsProvider";
 import AliyunProvider from "@/components/AliyunProvider";
 import KnativeProvider from "@/components/KnativeProvider";
+import RailwayDemo from '@/components/RailwayDemo';
 
 const routes = [
     {
@@ -108,6 +109,14 @@ const routes = [
         name: 'KNative Provider',
         components: {
             right: KnativeProvider,
+            left: Navigator
+        }
+    },
+    {
+        path: '/railway-demo',
+        name: 'Railway Demo',
+        components: {
+            right: RailwayDemo,
             left: Navigator
         }
     }
