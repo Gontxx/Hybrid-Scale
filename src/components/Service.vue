@@ -2,7 +2,7 @@
   <el-main>
     <el-breadcrumb :separator-icon="separator">
       <el-breadcrumb-item :to="{ path: '/services' }">Services</el-breadcrumb-item>
-      <el-breadcrumb-item>cat-detection-sevice</el-breadcrumb-item>
+      <el-breadcrumb-item>railway-classification-service</el-breadcrumb-item>
     </el-breadcrumb>
     <el-col class="main-content">
       <el-descriptions title="About this service" column=2 size="large">
@@ -10,7 +10,7 @@
         <el-tag size="small">Running</el-tag>
       </el-descriptions-item>
       <el-descriptions-item label="Cluster">
-        <plain-router-link to="/clusters" text="WM01"></plain-router-link>
+        <plain-router-link to="/clusters" text="mycluster0"></plain-router-link>
       </el-descriptions-item>
       <el-descriptions-item label="Service ID">JEIOFN839902</el-descriptions-item>
       <el-descriptions-item label="Runtime Environment">
@@ -18,15 +18,15 @@
           View
         </el-link>
       </el-descriptions-item>
-      <el-descriptions-item label="Cluster Environment">cluster-enviv-di</el-descriptions-item>
+      <el-descriptions-item label="Cluster Environment">AWS Ubuntu</el-descriptions-item>
       <el-descriptions-item label="Start Time">
-        03/09/2022
+        06/12/2022
       </el-descriptions-item>
       <el-descriptions-item label="Up Time">
-        3days, 14hrs
+        5min
       </el-descriptions-item>
       <el-descriptions-item label="Cost">
-        $135.93
+        $0.93
       </el-descriptions-item>
     </el-descriptions>
       <el-row style="margin-top: 10px;">

@@ -50,50 +50,18 @@ export default {
           name: 'tune-deployment',
           status: 'running',
           logs: 'logs',
-          cluster: 'WM01',
-          actors: 12,
-          date: '8/23/2021 12:22:02 PM',
+          cluster: 'mycluster0',
+          actors: 1,
+          date: '6/12/2022 15:42:02 PM',
         },
         {
           name: 'tune-deployment',
           status: 'idle',
           logs: 'logs',
-          cluster: 'WM01',
-          actors: 12,
-          date: '8/23/2021 12:22:02 PM'
-        },
-        {
-          name: 'tune-deployment',
-          status: 'failed',
-          logs: 'logs',
-          cluster: 'WM01',
-          actors: 12,
-          date: '8/23/2021 12:22:02 PM'
-        },
-        {
-          name: 'tune-deployment',
-          status: 'running',
-          logs: 'logs',
-          cluster: 'WM01',
-          actors: 12,
-          date: '8/23/2021 12:22:02 PM'
-        },
-        {
-          name: 'tune-deployment',
-          status: 'running',
-          logs: 'logs',
-          cluster: 'WM01',
-          actors: 12,
-          date: '8/23/2021 12:22:02 PM'
-        },
-        {
-          name: 'tune-deployment',
-          status: 'running',
-          logs: 'logs',
-          cluster: 'WM01',
-          actors: 12,
-          date: '8/23/2021 12:22:02 PM'
-        },
+          cluster: 'mycluster0',
+          actors: 1,
+          date: '6/12/2022 12:22:02 PM'
+        }
       ]
     }
   }
